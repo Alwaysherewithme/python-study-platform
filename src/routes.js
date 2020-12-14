@@ -2,12 +2,13 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
-import { DefaultLayout } from "./layouts";
+import { DefaultLayout, Signin } from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
+import CodeTest from "./views/CodeTest";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
@@ -16,13 +17,21 @@ import PostDetails from "./views/PostDetails";
 import CoursePosts from "./views/CoursePosts";
 import CourseSections from "./views/CourseSections";
 import CourseTests from "./views/CourseTests";
+import Login from "./components/login/Login";
+import SidebarNavItem from "./components/layout/MainSidebar/SidebarNavItem";
+import CodeTestDetail from "./views/CodeTestDetail";
 
 export default [
   {
     path: "/",
     exact: true,
-    layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    layout: Signin,
+    component: () => <Redirect to="/sign-in" />
+  },
+  {
+    path: "/sign-in",
+    layout: Signin,
+    component: Login
   },
   {
     path: "/blog-overview",
@@ -38,6 +47,16 @@ export default [
     path: "/add-new-post",
     layout: DefaultLayout,
     component: AddNewPost
+  },
+  {
+    path: "/code-test",
+    layout: DefaultLayout,
+    component: CodeTest
+  },
+  {
+    path: "/test-detail",
+    layout: DefaultLayout,
+    component: CodeTestDetail
   },
   {
     path: "/errors",

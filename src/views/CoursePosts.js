@@ -20,85 +20,58 @@ class CoursePosts extends React.Component {
         super(props);
 
         this.state = {
-            PostsList: [],
-
-            // Third list of posts.
-            PostsListThree: [
-                {
-                    author: "John James",
-                    authorAvatar: require("../images/avatars/1.jpg"),
-                    title: "Course_Name",
-                    body:
-                        "Description",
-                    date: "29 February 2019"
-                },
-                {
-                    author: "John James",
-                    authorAvatar: require("../images/avatars/2.jpg"),
-                    title: "Course_Name",
-                    body:
-                        "Description",
-                    date: "29 February 2019"
-                },
-                {
-                    author: "John James",
-                    authorAvatar: require("../images/avatars/3.jpg"),
-                    title: "Course_Name",
-                    body: "Description",
-                    date: "29 February 2019"
-                }
-            ]
+            courses: [],
+            isMyCourse: false
         };
     }
 
     // https://www.cnblogs.com/gerry2019/p/12432850.html
     async componentDidMount() {
-        let data = await fetch('http://localhost:5000/api/courses')
+        let data = await fetch(`http://localhost:5000/api/getAllCurriculumCourses/${window.location.search.split('=')[1]}`)
             .then(function (response) {
                 return response.json();
             });
-        // .then(function (data) {
-        //   this.setState({ PostsList: data.courses })
-        // });
         this.setState({
-            PostsList: data.courses
+            courses: data.allCurriculumCourses,
+            isMyCourse: true
         });
     }
 
     render() {
         const {
-            PostsList, PostsListOne, PostsListTwo, PostsListThree, PostsListFour
+            courses, isMyCourse
         } = this.state;
 
         return (
             <Container fluid className="main-content-container px-4">
                 {/* Page Header */}
                 <Row noGutters className="page-header py-4">
-                    <PageTitle sm="4" title="Courses" subtitle="Components" className="text-sm-left" />
+                    <PageTitle sm="4" title="Courses" subtitle="Curriculums / Courses" className="text-sm-left" />
                 </Row>
                 <Row>
-                    {PostsListThree.map((post, idx) => (
+                    {courses.map((course, idx) => (
                         <Col lg="4" key={idx}>
                             <Card small className="card-post mb-4">
                                 <CardBody>
                                     <span className="text-semibold text-fiord-blue">Subject_Code</span>
-                                    <h5 className="card-title">{post.title}</h5>
-                                    <span className="text-semibold text-fiord-blue">Course_Number</span>
+                                    <h5 className="card-title">{course.Subject_Code}</h5>
+                                    <span className="text-semibold text-fiord-blue">{course.Course_Number}</span>
                                     &nbsp;
+                                    <p className="card-text text-muted">{course.Description}</p>
                                     <span className="text-semibold text-fiord-blue">Course_Hours</span>
-                                    <p className="card-text text-muted">{post.body}</p>
+                                    <p className="card-text text-muted">{course.Course_Hours}</p>
                                 </CardBody>
                                 <CardFooter className="border-top d-flex">
                                     <div className="card-post__author d-flex">
-                                        <Button size="sm" theme="white" href="/course-sections">
+                                        <Button size="sm" theme="white" href={`/course-sections?course-id=${course.id}`}>
                                             <i className="fas fa-book mr-1" /> Take a lecture
                                         </Button>
                                         {/* <a href="/course-sections"><i className="fas fa-chalkboard-teacher">Have a learn</i></a> */}
                                     </div>
                                     <div className="my-auto ml-auto">
-                                        <Button size="sm" theme="white" href="course-tests">
+                                        <Button size="sm" theme="white" href={`/course-tests?course-id=${course.id}`}>
                                             <i className="fas fa-graduation-cap mr-1" /> Go to test
-                    </Button>
+                                        </Button>
                                     </div>
                                 </CardFooter>
                             </Card>

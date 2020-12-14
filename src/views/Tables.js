@@ -19,14 +19,14 @@ const Tables = () => (
           </CardHeader>
 
           <CardBody className="p-0 pb-3">
-            <h5 className="card-title">
+            {/* <h5 className="card-title">
               <a href={`/post-details?id=`} className="text-fiord-blue">
                 4.4数字格式化
               </a>
             </h5>
             <p className="card-text d-inline-block mb-3">str.format()通过字符串中的花括号{}来识别替换字段，从而完成字符串的格式化。如：</p>
             <p>{'>> print("{:.2f}".format(3.1415926));'}</p>
-            <p>3.14</p>
+            <p>3.14</p> */}
 
             <table className="table mb-0">
               <thead className="bg-light">

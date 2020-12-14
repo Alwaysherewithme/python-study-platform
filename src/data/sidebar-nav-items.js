@@ -1,7 +1,7 @@
 export default function () {
   return [
     {
-      title: "Blog Dashboard",
+      title: "我的主页",
       to: "/blog-overview",
       htmlBefore: '<i class="material-icons">edit</i>',
       htmlAfter: ""
@@ -12,14 +12,19 @@ export default function () {
       to: "/blog-posts",
     },
     {
-      title: "Courses",
+      title: "章节学习",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/course-posts",
+      to: "/course-sections",
     },
     {
       title: "Add New Course",
       htmlBefore: '<i class="material-icons">note_add</i>',
       to: "/add-new-post",
+    },
+    {
+      title: "综合编程",
+      htmlBefore: '<i class="material-icons">note_add</i>',
+      to: "/code-test",
     },
     {
       title: "Forms & Components",
