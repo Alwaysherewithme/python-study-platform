@@ -254,33 +254,42 @@ app.get('/api/getMyStudy/:personId', async (req, res) => {
     // pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.params.personId], async function (err, results, fields) {
     let sql3 = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
     let data3 = await getResult(sql3);
+    // debugger
     // data3[0].Person_id
     console.log("Person Study .... ", data3)
     let myStudy = {};
-    for (let i = 0; i < data3.length; i++) {
-        if (data3[i].Associated_Section_id + '' in Object.keys(myStudy)) {
-            continue
-        } else {
-            myStudy[data3[i].Associated_Section_id] = data3[i]
-        }
-    }
-    console.log("Person Study Associated ... ", myStudy)
-    res.json({ myStudy: myStudy });
+    if (data3.length > 0) {
 
-    /*
-        let sql1 = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
-        pool.query(sql1, async function(err, result) {
-            if (err) throw err;
-            for (var i = 0; i < result.length; i++) {
-              var db_name = result[i].db_name;
-                console.log('db_name ...', db_name);
-                var sql = sql2.replace("{0}",db_name)
-                var res = await getResult(sql)
-                console.log(db_name+','+res[0].solution); //Here db_name is showed only the last one.
-            };
-            pool.end()
-          });
-          */
+        // for (let i = 0; i < data3.length; i++) {
+        //     if ((data3[i].Associated_Section_id + '') in Object.keys(myStudy)) {
+        //         continue
+        //     } else {
+        //         myStudy[data3[i].Associated_Section_id] = data3[i]
+        //     }
+        // }
+        data3.forEach((item, idx) => {
+            !myStudy[item.Associated_Section_id] && (myStudy[item.Associated_Section_id] = item)
+
+        })
+        console.log("Person Study Associated ... ", myStudy)
+        res.json({ myStudy: myStudy });
+
+        /*
+            let sql1 = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
+            pool.query(sql1, async function(err, result) {
+                if (err) throw err;
+                for (var i = 0; i < result.length; i++) {
+                  var db_name = result[i].db_name;
+                    console.log('db_name ...', db_name);
+                    var sql = sql2.replace("{0}",db_name)
+                    var res = await getResult(sql)
+                    console.log(db_name+','+res[0].solution); //Here db_name is showed only the last one.
+                };
+                pool.end()
+              });
+              */
+    }
+
 });
 
 // https://blog.csdn.net/wopelo/article/details/79810785

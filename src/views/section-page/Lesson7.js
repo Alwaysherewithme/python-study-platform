@@ -7,82 +7,94 @@ export const Lesson7 = () => (
     <Fragment>
         <Row className="page-header py-4">
             <Col>
-                <h1>还没格式化</h1>
-                <h3>7.	Python序列</h3>
-                <p>
-                    <div>序列是多个元素的组合。</div>
-                    <div>为便于快速找到序列中的元素，每个元素都分配了索引。</div>
-                    <div>序列的第一个索引是0，第二个索引是1，依此类推。</div>
-                    <div>类似的，序列的倒数第一个索引是-1，倒数第二个索引是-2，依此类推。</div>
-                    <div>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</div>
-                    <div>前面讲的字符串就属于序列。此外还有两种最常见的序列：列表、元组。</div>
-                </p>
-                <h4>7.1 列表</h4>
-                <p>
-                    <div>列表是什么</div>
-                    <div>列表由一系列按特定顺序排列的元素组成。</div>
-                    <div>Python用方括号（[ ]）表示列表，并用逗号分割其中的元素。</div>
-                    <div>列表的元素不需要具有相同的数据类型。</div>
-                    <div>创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</div>
-                    <pre>list1 = ['physics', 'chemistry', 1997, 2000]</pre>
-                    <pre>list2 = [1, 2, 3, 4, 5]</pre>
-                    <pre>list3 = ["a", "b", "c", "d"]</pre>
-                </p>
-                <p>
-                    <div>访问列表中的值</div>
-                    <div>与字符串的索引一样，列表索引从0开始。使用下标索引来访问列表中的值，如：</div>
-                </p>
-                <pre>&gt;&gt;&gt; list = ['physics', 'chemistry', 1997, 2000]</pre>
-                <pre>&gt;&gt;&gt; list[0]</pre>
-                <pre>'physics'</pre>
-                <pre>&gt;&gt;&gt; list[1]</pre>
-                <pre>'chemistry'</pre>
-                <p>
-                    <div>更新列表</div>
-                    <div>可以对列表的元素进行修改或更新，如：</div>
-                    <pre>&gt;&gt;&gt; cars = ["Porsche", "Volvo", "BMW"]</pre>
-                    <pre>&gt;&gt;&gt; cars[0] = "Audi"</pre>
-                    <pre>&gt;&gt;&gt; print(cars)</pre>
-                    <pre>['Audi', 'Volvo', 'BMW']</pre>
-                    <div>也可以使用append()方法来添加列表项，如：</div>
-                    <pre>&gt;&gt;&gt; list = []               # 空列表</pre>
-                    <pre>&gt;&gt;&gt; list.append('Google')   # 使用 append() 添加元素</pre>
-                    <pre>&gt;&gt;&gt; print(list)</pre>
-                    <pre>['Google']</pre>
-                </p>
-                <p>
-                    <div>删除列表元素</div>
-                    <div>可以使用 del 语句来删除列表的元素，如：</div>
-                    <pre>&gt;&gt;&gt; list = ['physics', 'chemistry', 1997, 2000]</pre>
-                    <pre>&gt;&gt;&gt; del list[2]</pre>
-                    <pre>&gt;&gt;&gt; print(list)</pre>
-                    <pre>['physics', 'chemistry', 2000]</pre>
-                </p>
-                <p>
-                    <div>列表切片</div>
-                    <div>列表切片处理方法与字符串切片方法类似。所不同的是，列表切片处理的是一个一个列表内以索引为单位的元素；字符串处理的是一个一个以字符为单位的元素。如：</div>
-                    <pre>&gt;&gt;&gt; L = ['Google', 'Yahoo', 'Taobao']</pre>
-                    <pre>&gt;&gt;&gt; L[-2]</pre>
-                    <pre>'Yahoo'</pre>
-                    <pre>&gt;&gt;&gt; L[1:]</pre>
-                    <pre>['Yahoo', 'Taobao']</pre>
-                </p>
-                <p>
-                    <div>序列类型通用函数</div>
-                    <div>以s =["python","chemistry","art"]为例：</div>
-                </p>
+                <h3>7.  Python序列</h3>
+                <div>序列是多个元素的组合。</div>
+                <div>为便于快速找到序列中的元素，每个元素都分配了索引。</div>
+                <div>序列的第一个索引是0，第二个索引是1，依此类推。</div>
+                <div>类似的，序列的倒数第一个索引是-1，倒数第二个索引是-2，依此类推。</div>
+                <div>序列都可以进行的操作包括索引，切片，加，乘，检查成员。</div>
+                <div>前面讲的字符串就属于序列。此外还有两种最常见的序列：列表、元组。</div>
+                <p></p>
+
+                <h4>7.1  列表</h4>
+                <b>列表是什么</b>
+                <div>列表由一系列按特定顺序排列的元素组成。</div>
+                <div>Python 用方括号（[ ]）表示列表，并用逗号分割其中的元素。</div>
+                <div>列表的元素不需要具有相同的数据类型。</div>
+                <div>创建一个列表，只要把逗号分隔的不同的数据项使用方括号括起来即可。如下所示：</div>
+                <pre>
+                    {`
+list1 = ['physics', 'chemistry', 1997, 2000]
+list2 = [1, 2, 3, 4, 5]
+list3 = ["a", "b", "c", "d"]
+                    `}
+                </pre>
+
+                <b>访问列表中的值</b>
+                <div>与字符串的索引一样，列表索引从0开始。使用下标索引来访问列表中的值，如：</div>
+                <pre>
+                    {`
+>>> list = ['physics', 'chemistry', 1997, 2000]
+>>> list[0]
+'physics'
+>>> list[1]
+'chemistry'
+                    `}
+                </pre>
+
+                <b>更新列表</b>
+                <div>可以对列表的元素进行修改或更新，如：</div>
+                <pre>
+                    {`
+>>> cars = ["Porsche", "Volvo", "BMW"]
+>>> cars[0] = "Audi"
+>>> print(cars)
+['Audi', 'Volvo', 'BMW']
+                    `}
+                </pre>
+                <div>也可以使用append()方法来添加列表项，如：</div>
+                <pre>
+                    {`
+>>> list = []               # 空列表
+>>> list.append('Google')   # 使用 append() 添加元素
+>>> print(list)
+['Google']
+                    `}
+                </pre>
+
+                <b>删除列表元素</b>
+                <div>可以使用 del 语句来删除列表的元素，如：</div>
+                <pre>
+                    {`
+>>> list = ['physics', 'chemistry', 1997, 2000]
+>>> del list[2]
+>>> print(list)
+['physics', 'chemistry', 2000]
+                    `}
+                </pre>
+
+                <b>列表切片</b>
+                <div>列表切片处理方法与字符串切片方法类似。所不同的是，列表切片处理的是一个一个列表内以索引为单位的元素；字符串处理的是一个一个以字符为单位的元素。如：</div>
+                <pre>
+                    {`
+>>> L = ['Google', 'Yahoo', 'Taobao']
+>>> L[-2]
+'Yahoo'
+>>> L[1:]
+['Yahoo', 'Taobao']
+                    `}
+                </pre>
+
+                <b>序列类型通用函数</b>
+                <div>以s =["python","chemistry","art"]为例：</div>
+                <p></p>
+
                 <table className="table mb-0">
                     <thead className="bg-light">
                         <tr>
-                            <th scope="col" className="border-0">
-                                函数
-                        </th>
-                            <th scope="col" className="border-0">
-                                描述
-                        </th>
-                            <th scope="col" className="border-0">
-                                实例
-                        </th>
+                            <th scope="col" className="border-0">函数</th>
+                            <th scope="col" className="border-0">描述</th>
+                            <th scope="col" className="border-0">实例</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -118,23 +130,18 @@ export const Lesson7 = () => (
                         </tr>
                     </tbody>
                 </table>
-                <br />
-                <p>
-                    <div>列表类型操作函数和方法</div>
-                    <div>以ls = ["cat","dog","tiger",1024]为例：</div>
-                </p>
+                <p></p>
+
+                <b>列表类型操作函数和方法</b>
+                <div>以ls = ["cat", "dog", "tiger", 1024]为例：</div>
+                <p></p>
+
                 <table className="table mb-0">
                     <thead className="bg-light">
                         <tr>
-                            <th scope="col" className="border-0">
-                                函数或方法
-                        </th>
-                            <th scope="col" className="border-0">
-                                描述
-                        </th>
-                            <th scope="col" className="border-0">
-                                实例
-                        </th>
+                            <th scope="col" className="border-0">函数或方法</th>
+                            <th scope="col" className="border-0">描述</th>
+                            <th scope="col" className="border-0">实例</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -175,53 +182,65 @@ export const Lesson7 = () => (
                         </tr>
                     </tbody>
                 </table>
-                <h4>7.2 元祖</h4>
-                <p>元祖tuple是一种序列。元祖与列表的不同之处在于：列表的元素可以修改，而元组的元素不能修改。元祖使用圆括号标识，并使用逗号分隔元素。</p>
+                <p></p>
 
-                <div>创建元祖</div>
-                <pre>tup1 = ('physics', 'chemistry', 1997, 2000) </pre>
-                <pre>tup2 = (1, 2, 3, 4, 5 )</pre>
-                <pre>tup3 = ()              #创建空元组</pre>
-                <pre>tup4 = (50,)           #元组中只包含一个元素时，须在元素后面添加逗号！</pre>
+                <h4>7.2  元祖</h4>
+                <div>元祖 tuple 是一种序列。元祖与列表的不同之处在于：列表的元素可以修改，而元组的元素不能修改。元祖使用圆括号标识，并使用逗号分隔元素。</div>
 
-                <div>访问元祖元素</div>
-                <div>可以通过引用方括号内的索引号来访问元组元素。下标索引从0开始。如：</div>
-                <pre>&gt;&gt;&gt; tuple = ("apple", "banana", "cherry", "orange", "kiwi")</pre>
-                <pre>&gt;&gt;&gt; print(tuple[1])</pre>
-                <pre>banana</pre>
-                <pre>&gt;&gt;&gt; print(tuple[-1])</pre>
-                <pre>kiwi</pre>
-                <pre>&gt;&gt;&gt; print(tuple[-3:-1])</pre>
-                <pre>('cherry', 'orange')</pre>
+                <b>创建元祖</b>
+                <pre>
+                    {`
+tup1 = ('physics', 'chemistry', 1997, 2000)
+tup2 = (1, 2, 3, 4, 5 )
+tup3 = ()              # 创建空元组
+tup4 = (50,)           # 元组中只包含一个元素时，须在元素后面添加逗号！
+                    `}
+                </pre>
+
+                <b>访问元祖元素</b>
+                <div>可以通过引用方括号内的索引号来访问元组元素。下标索引从 0 开始。如：</div>
+                <pre>
+                    {`
+>>> tuple = ("apple", "banana", "cherry", "orange", "kiwi")
+>>> print(tuple[1])
+banana
+>>> print(tuple[-1])
+kiwi
+>>> print(tuple[-3:-1])
+('cherry', 'orange')
+                    `}
+                </pre>
 
                 <b>修改元组元素</b>
                 <div>元组中的元素值是不允许修改的，但可以对整个元组变量重新赋值。如：</div>
-                <pre>&gt;&gt;&gt; tup = (12, 34.56) </pre>
-                <pre>&gt;&gt;&gt; tup = ('abc', 'xyz') </pre>
-                <pre># 以下修改元组元素操作是非法的，系统将报错。</pre>
-                <pre># tup[0] = 100 </pre>
-                <pre>TypeError: 'tuple' object does not support item assignment</pre>
+                <pre>
+                    {`
+>>> tup = (12, 34.56) 
+>>> tup = ('abc', 'xyz') 
+# 以下修改元组元素操作是非法的，系统将报错。
+# tup[0] = 100 
+TypeError: 'tuple' object does not support item assignment
+                    `}
+                </pre>
                 <b>删除元祖</b>
-                <div>可以使用del语句来删除整个元组</div>
-                <pre>&gt;&gt;&gt; tup = ("apple", "banana", "cherry")</pre>
-                <pre>&gt;&gt;&gt; del tup</pre>
-                <pre># 以下会引发错误，因为元组已不存在。</pre>
-                <pre>#print(tup)</pre>
-                <pre>NameError: name 'tup' is not defined</pre>
+                <div>可以使用 del 语句来删除整个元组</div>
+                <pre>
+                    {`
+>>> tup = ("apple", "banana", "cherry")
+>>> del tup
+# 以下会引发错误，因为元组已不存在。
+# print(tup)
+NameError: name 'tup' is not defined
+                    `}
+                </pre>
 
                 <b>元祖相关函数</b>
                 <table className="table mb-0">
                     <thead className="bg-light">
                         <tr>
-                            <th scope="col" className="border-0">
-                                Python表达式
-                        </th>
-                            <th scope="col" className="border-0">
-                                结果
-                        </th>
-                            <th scope="col" className="border-0">
-                                描述
-                        </th>
+                            <th scope="col" className="border-0">Python 表达式</th>
+                            <th scope="col" className="border-0">结果</th>
+                            <th scope="col" className="border-0">描述</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -256,58 +275,60 @@ export const Lesson7 = () => (
                             <td>元素是否存在</td>
                         </tr>
                         <tr>
-                            <td>for x in (1, 2, 3):<br />&nbsp;&nbsp;&nbsp;&npsp;print x,</td>
+                            <td>
+                                <pre>
+                                    {`
+for x in (1, 2, 3):
+    print x,
+                                    `}
+                                </pre>
+                            </td>
                             <td>1 2 3</td>
                             <td>遍历元祖元素</td>
                         </tr>
                     </tbody>
                 </table>
-
             </Col>
         </Row>
         <Row noGutters className="page-header py-4">
-            <Col md="12" className="form-group">
-                <h3>测试</h3>
+            <Col>
+                <h3>小测试</h3>
                 <form id="testForm">
-                    <label htmlFor="feFirstName">1. 列表List值为[1,2,3,4,5,6,7,8]，则切片List[2:5]得到的值是（ ）。</label>
-                    <p>
-                        <div>
-                            <input type="radio" name="problem_1" value="A" /> A. [2,3,4,5]
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_1" value="B" /> B. [2,3,4]
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_1" value="C" /> C. [3,4,5,6]
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_1" value="D" /> D. [3,4,5]]
-                        </div>
-                    </p>
-                    <label htmlFor="feFirstName">2. 表达式（1，2，3）* 3的执行结果是（ ）。</label>
-                    <p>
-                        <div>
-                            <input type="radio" name="problem_2" value="A" /> A. (1，2，3，1，2，3，1，2，3)
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_2" value="B" /> B. (1，1，1，2，2，2，3，3，3)
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_2" value="C" /> C. ((1，2，3), (1，2，3), (1，2，3))
-                        </div>
-                    </p>
-                    <label htmlFor="feFirstName">3. 已知x=[1，2，3，2，3]，执行语句x.pop()之后，x的值为（  ）。</label>
-                    <p>
-                        <div>
-                            <input type="radio" name="problem_3" value="A" /> A. [1,2,3,2]
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_3" value="B" /> B. [2,3,2,3]
-                        </div>
-                        <div>
-                            <input type="radio" name="problem_3" value="C" /> C. [1,2,3]
-                        </div>
-                    </p>
+                    <label>1.  列表 List 值为 [1, 2, 3, 4, 5, 6, 7, 8] ，则切片 List[2 : 5] 得到的值是（ ）。</label>
+                    <div>
+                        <input type="radio" name="problem_1" value="A" /> A. [2, 3, 4, 5]
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_1" value="B" /> B. [2, 3, 4]
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_1" value="C" /> C. [3, 4, 5, 6]
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_1" value="D" /> D. [3, 4, 5]
+                    </div>
+                    <p></p>
+                    <label>2.  表达式（1，2，3）* 3 的执行结果是（ ）。</label>
+                    <div>
+                        <input type="radio" name="problem_2" value="A" /> A. (1，2，3，1，2，3，1，2，3)
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_2" value="B" /> B. (1，1，1，2，2，2，3，3，3)
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_2" value="C" /> C. ((1，2，3), (1，2，3), (1，2，3))
+                    </div>
+                    <p></p>
+                    <label>3. 已知 x = [1, 2, 3, 2, 3]，执行语句 x.pop() 之后，x 的值为（  ）。</label>
+                    <div>
+                        <input type="radio" name="problem_3" value="A" /> A. [1, 2, 3, 2]
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_3" value="B" /> B. [2, 3, 2, 3]
+                    </div>
+                    <div>
+                        <input type="radio" name="problem_3" value="C" /> C. [1, 2, 3]
+                    </div>
                 </form>
             </Col>
         </Row>

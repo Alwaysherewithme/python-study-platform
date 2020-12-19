@@ -18,43 +18,53 @@ export const Lesson4 = () => (
         <div>为变量赋值时，将创建数值类型的变量。如：</div>
         <br />
         <pre>
-          x = 10     # int<br />
-          y = 6.3    # float<br />
-          z = 2j     # complex
+          {`
+x = 10     # int
+y = 6.3    # float
+z = 2j     # complex
+          `}
         </pre>
         <h4>4.2  Python数字类型转换</h4>
         <div>可以使用 int()、float() 和 complex() 方法从一种类型转换为另一种类型。如：</div>
         <pre>
-          x = 10     # int<br />
-          y = 6.3    # float<br />
-          z = 1j     # complex<br />
-          a = float(x)     # 把整数转换为浮点数<br />
-          b = int(y)       # 把浮点数转换为整数<br />
-          c = complex(x)   # 把整数转换为复数
+          {`
+x = 10     # int
+y = 6.3    # float
+z = 1j     # complex
+a = float(x)     # 把整数转换为浮点数
+b = int(y)       # 把浮点数转换为整数
+c = complex(x)   # 把整数转换为复数
+          `}
         </pre>
         <div>备注：无法将复数转换为其他数字类型。</div>
         <br />
         <h4>4.3  Python浮点数运算注意事项</h4>
         <div>Python 浮点数运算需要特别注意的是，其小数点尾数有时存在问题。如：</div>
         <pre>
-          &gt;&gt;&gt; 0.1+0.2<br />
-          0.30000000000000004<br />
-          &gt;&gt;&gt; 0.1+0.2==0.3<br />
-          False
+          {`
+>>> 0.1+0.2
+0.30000000000000004
+>>> 0.1+0.2==0.3
+False
+          `}
         </pre>
         <div>为避免上述情况发生，请使用 round( ) 函数使用近似值。</div>
         <pre>
-          &gt;&gt;&gt; round(0.1+0.2, 2)<br />
-          0.3<br />
-          &gt;&gt;&gt; round(0.1+0.2, 2)==0.3<br />
-          True
+          {`
+>>> round(0.1+0.2, 2)
+0.3
+>>> round(0.1+0.2, 2)==0.3
+True
+          `}
         </pre>
         <br />
         <h4>4.4  数字格式化</h4>
         <div>str.format() 通过字符串中的花括号{'{}'}来识别替换字段，从而完成字符串的格式化。如：</div>
         <pre>
-          &gt;&gt;&gt; print("{':.2f'}".format(3.1415926));<br />
-          3.14
+          {`
+>>> print("{':.2f'}".format(3.1415926));
+3.14
+          `}
         </pre>
         <table className="table mb-0">
           <thead className="bg-light">
@@ -169,7 +179,6 @@ export const Lesson4 = () => (
           <div>
             <input type="radio" name="problem_3" value="D" /> C. 4.0
           </div>
-          <p></p>
         </form>
       </Col>
     </Row>

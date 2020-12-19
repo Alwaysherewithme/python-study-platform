@@ -74,7 +74,6 @@ export const Lesson1 = () => (
                     <div>
                         <input type="radio" name="problem_3" value="C" /> C. 既支持面向过程又支持面向对象
                     </div>
-                    <p></p>
                     {/* <FormRadio>A 仅支持面向过程</FormRadio>
                     <FormRadio>B仅支持面向对象</FormRadio>
                     <FormRadio>C既支持面向过程又支持面向对象</FormRadio> */}

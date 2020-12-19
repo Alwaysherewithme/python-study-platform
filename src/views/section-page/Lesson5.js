@@ -262,7 +262,6 @@ export const Lesson5 = () => (
           <div>
             <input type="radio" name="problem_3" value="B" /> B. False
           </div>
-          <p></p>
         </form>
       </Col>
     </Row>

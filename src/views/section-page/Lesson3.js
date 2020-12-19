@@ -20,9 +20,13 @@ export const Lesson3 = () => (
                 <br />
                 <h4>3.2  Python 关键字</h4>
                 <div>Python 的标准库提供了一个 keyword 模块，可以输出当前版本的所有关键字：</div>
-                <pre>&gt;&gt;&gt; import keyword</pre>
-                <pre>&gt;&gt;&gt; keyword.kwlist</pre>
-                <p>['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']</p>
+                <pre>
+                    {`
+>>> import keyword
+>>> keyword.kwlist
+['False', 'None', 'True', 'and', 'as', 'assert', 'break', 'class', 'continue', 'def', 'del', 'elif', 'else', 'except', 'finally', 'for', 'from', 'global', 'if', 'import', 'in', 'is', 'lambda', 'nonlocal', 'not', 'or', 'pass', 'raise', 'return', 'try', 'while', 'with', 'yield']
+                    `}
+                </pre>
             </Col>
         </Row>
         <Row className="page-header py-4">
@@ -58,7 +62,6 @@ export const Lesson3 = () => (
                     <div>
                         <input type="radio" name="problem_3" value="B" /> B. 错
                     </div>
-                    <p></p>
                 </form>
             </Col>
         </Row>

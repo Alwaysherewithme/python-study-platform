@@ -25,7 +25,7 @@ import { getUserData, getPathname } from "../../store/Action";
 import * as auth from "../../services/Session";
 import { API_HOST } from "../../api/constants";
 
-let userSignin = (loginName) => {
+let userSignin2 = (loginName) => {
   alert("signin ...", loginName)
   // fetch
 };
@@ -40,7 +40,7 @@ class Login extends React.Component {
 
   }
 
-  userSignin2 = async () => {
+  userSignin = async () => {
     // alert(loginName.value)
 
     if (this.state.loginName) {
@@ -48,7 +48,7 @@ class Login extends React.Component {
         name: this.state.loginName
       }
       fetch(`${API_HOST}/api/sign-in`, {
-      // fetch(`${window.location.href}:5000/api/sign-in`, {
+        // fetch(`${window.location.href}:5000/api/sign-in`, {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=utf-8'
@@ -73,6 +73,41 @@ class Login extends React.Component {
             // this.props.signin(data.signinUser[0])
             // document.cookie = `signinUserId=${data.signinUser[0].ID}`
             // document.cookie = `signinUserName=${data.signinUser[0].Name}`
+            console.log("Login Signin ... ", this.props)
+            auth.setItem("uuid", data.signinUser[0].ID);
+            auth.setItem("name", data.signinUser[0].Name);
+            auth.setItem("token", `${data.signinUser[0].ID}_${data.signinUser[0].Name}`)
+            // window.location.href = "/blog-posts"
+            this.props.history.push('/course-sections');
+            // this.props.redirect("/blog-posts");
+          } else {
+            alert('Error occured...')
+          }
+        });
+    }
+  }
+
+  userRegister = async () => {
+    // alert(loginName.value)
+
+    if (this.state.loginName) {
+      let data = {
+        name: this.state.loginName
+      }
+      fetch(`${API_HOST}/api/sign-in`, {
+        // fetch(`${window.location.href}:5000/api/sign-in`, {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(data)
+        // body: courseData
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.signinUser.length > 0) {
+            console.log('... Signin : ', data.signinUser)
+
             console.log("Login Signin ... ", this.props)
             auth.setItem("uuid", data.signinUser[0].ID);
             auth.setItem("name", data.signinUser[0].Name);
@@ -146,7 +181,7 @@ class Login extends React.Component {
             <ListGroupItem className="p-3">
               <Row>
                 <Col>
-                  {/* <Form onSubmit={userSignin2} type="post"> */}
+                  {/* <Form onSubmit={userSignin} type="post"> */}
                   <Form>
                     {/* <Form onSubmit={this.submitForm}> */}
                     {/*<Row form>
@@ -201,9 +236,24 @@ class Login extends React.Component {
                         />
                       </Col>
                     </Row>
+                    {/* <Row>
+                      <Col md="12" className="form-group">
+                        <label htmlFor="fePassword">chongfu密码</label>
+                        <FormInput
+                          type="password"
+                          id="fePassword"
+                          placeholder="Password"
+                          value="EX@MPL#P@$$w0RD"
+                          onChange={() => { }}
+                          // onChange={this.handleUserInput}
+                          autoComplete="current-password"
+                          disabled
+                        />
+                      </Col>
+                    </Row> */}
                     <Row>
                       <Col md="12" className="form-group text-center">
-                        <Button theme="accent" className="btn-lg" onClick={this.userSignin2}>登录</Button>
+                        <Button theme="accent" onClick={this.userSignin}>登录</Button>
                         {/* <Button theme="accent" className="btn-lg" type="submit">登录</Button> */}
                       </Col>
                     </Row>
@@ -211,6 +261,11 @@ class Login extends React.Component {
                 </Col>
               </Row>
             </ListGroupItem>
+            {/* <ListGroupItem className="p-3">
+              <Row>
+                <Col><Button onClick={ this.userRegister }>zhuce</Button></Col>
+              </Row>
+            </ListGroupItem> */}
           </ListGroup>
         </Card>
       </Container>

@@ -78,7 +78,7 @@ class CourseSections extends React.Component {
                 datasets: [
                     {
                         hoverBorderColor: "#ffffff",
-                        data: [Object.keys(data3.myStudy).length, data2.allCourseSections.length],
+                        data: [Object.keys(data3.myStudy).length, (data2.allCourseSections.length - Object.keys(data3.myStudy).length)],
                         backgroundColor: [
                             "rgba(0,123,255,0.9)",
                             "rgba(0,123,255,0.3)"
@@ -138,7 +138,7 @@ class CourseSections extends React.Component {
         // formData.append('p1', )
         console.log("Form Data ... ", myRadioInput1, myRadioInput2, myRadioInput3)
         // alert(sectionId)
-        if(myRadioInput1 && myRadioInput2 && myRadioInput3) {
+        if (myRadioInput1 && myRadioInput2 && myRadioInput3) {
             let data = {
                 Person_id: auth.getItem("uuid"),
                 Associated_Section_id: sectionId,
@@ -156,7 +156,7 @@ class CourseSections extends React.Component {
                 .then(data => {
                     if (data.mySectionAnswers) {
                         console.log('Section Answer has been added! ---- ', data.mySectionAnswers)
-                        // window.location.reload();
+                        window.location.reload();
                     } else {
                         alert('Error occured...')
                     }
@@ -202,7 +202,7 @@ class CourseSections extends React.Component {
                             <ListGroup flush>
                                 {
                                     allSections.map((section, idx) => (
-                                        <ListGroupItem className="px-4" onClick={() => { this.getCurrentSection(idx) }}>
+                                        <ListGroupItem key={idx} className="px-4" onClick={() => { this.getCurrentSection(idx) }}>
                                             <div className="progress-wrapper">
                                                 <strong className="text-muted d-block mb-2">
                                                     {`${section.Section_ID} - ${section.Title}`}
@@ -237,7 +237,7 @@ class CourseSections extends React.Component {
                             </CardHeader>
                             <ListGroup flush>
                                 <ListGroupItem className="p-3">
-                                    <Row className="border-bottom">
+                                    <Row>
                                         <Col>
                                             {currentSectionContent()}
                                             {/* <Lesson /> */}
@@ -247,7 +247,7 @@ class CourseSections extends React.Component {
                                     <Row>
                                         <Col md="12" className="form-group text-center">
                                             {/* <button click={(e) => this.submitTest(e, currentSection.ID)}>Submit Test</button> */}
-                                            <Button theme="accent" className="btn-lg" onClick={e => this.submitTest(e, currentSection.Section_ID)} >提交答案</Button>
+                                            <Button theme="accent" onClick={e => this.submitTest(e, currentSection.Section_ID)} >提交答案</Button>
                                         </Col>
                                     </Row>
                                 </ListGroupItem>
