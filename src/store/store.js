@@ -1,4 +1,5 @@
 import { createStore } from 'redux';
+import { SIGNIN_ACTION, SIGNOUT_ACTION } from './ActionTypes';
 
 
 let defaultState = {
@@ -7,16 +8,6 @@ let defaultState = {
         Name: "Default"
     }
 }
-
-// let signinAction = (payload) => (
-//     type: "SIGNIN_ACTION",
-//     payload
-// )
-
-// let signoutAction = (payload) => {
-//     type: "SIGNOUT_ACTION",
-//     payload
-// }
 
 let ActionFnObj = {
     SIGNIN_ACTION: (state, action) => {
@@ -31,14 +22,10 @@ let ActionFnObj = {
 
 let reducer = (state=defaultState, action) => {
     switch (action.type) {
-        // case Constants.TOGGLE_SIDEBAR:
-        //   this.toggleSidebar();
-        //   break;
-        case "SIGNIN_ACTION":
+        case SIGNIN_ACTION:
           state = ActionFnObj[action.type](state, action);
-        //   console.log("SINGIN...", state, {...state})
           return {...state};
-        case "SIGNOUT_ACTION":
+        case SIGNOUT_ACTION:
             state = ActionFnObj[action.type](state, action);
             return {...state};
         default:
@@ -46,41 +33,6 @@ let reducer = (state=defaultState, action) => {
     }
 }
 
-
-
-// const loadState = () => {
-//     try {
-//       const serializedState = localStorage.getItem('signinUser');
-//       if(serializedState === null) {
-//         return undefined;
-//       }
-//       return JSON.parse(serializedState);
-//     } catch (e) {
-//       return undefined;
-//     }
-//   };
-  
-//   const saveState = (state) => {
-//     try {
-//       const serializedState = JSON.stringify(state);
-//       localStorage.setItem('signinUser', serializedState);
-//     } catch (e) {
-//       // Ignore write errors;
-//     }
-//   };
-  
-//   const peristedState = loadState();
-  
-//   store.subscribe(() => {
-//     saveState(store.getState());
-//   });
-  
-//   const store = createStore(
-//     persistedState,
-//     // Others reducers...
-//   );
-
-// const store = createStore(persistedState, reducer)
 const store = createStore(reducer)
 
 export {store};

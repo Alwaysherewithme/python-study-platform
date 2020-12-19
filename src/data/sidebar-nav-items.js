@@ -7,19 +7,9 @@ export default function () {
       htmlAfter: ""
     },
     {
-      title: "Curriculums",
-      htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/blog-posts",
-    },
-    {
       title: "章节学习",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
       to: "/course-sections",
-    },
-    {
-      title: "Add New Course",
-      htmlBefore: '<i class="material-icons">note_add</i>',
-      to: "/add-new-post",
     },
     {
       title: "综合编程",
@@ -30,11 +20,6 @@ export default function () {
       title: "Forms & Components",
       htmlBefore: '<i class="material-icons">view_module</i>',
       to: "/components-overview",
-    },
-    {
-      title: "Tables",
-      htmlBefore: '<i class="material-icons">table_chart</i>',
-      to: "/tables",
     },
     {
       title: "User Profile",

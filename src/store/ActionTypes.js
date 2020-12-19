@@ -12,3 +12,5 @@ export const ATTEMPTED_QUESTIONS = "ATTEMPTED_QUESTIONS";
 export const RESET_INDEX = "RESET_INDEX";
 export const RESET_DATA = "RESET_DATA";
 export const LOGOUT = "LOGOUT";
+export const SIGNIN_ACTION = "SIGNIN_ACTION";
+export const SIGNOUT_ACTION = "SIGNOUT_ACTION";

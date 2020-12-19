@@ -159,7 +159,7 @@ orl
             <Col md="12" className="form-group">
                 <h3>小测试</h3>
                 <form id="testForm">
-                    <label>1.  表达式 'ab’in 'acbed’ 的值为（  ）。</label>
+                    <label>1.  表达式 'ab' in 'acbed' 的值为（  ）。</label>
                     <div>
                         <input type="radio" name="problem_1" value="A" /> A. True
                     </div>
@@ -167,7 +167,7 @@ orl
                         <input type="radio" name="problem_1" value="B" /> B. False
                     </div>
                     <p></p>
-                    <label>2.  表达式 'abcabcabcab’.count('abc’) 的值为（  ）。</label>
+                    <label>2.  表达式 'abcabcabcab'.count('abc') 的值为（  ）。</label>
                     <div>
                         <input type="radio" name="problem_2" value="A" /> A. 1
                     </div>
@@ -178,7 +178,7 @@ orl
                         <input type="radio" name="problem_2" value="C" /> C. 3
                     </div>
                     <p></p>
-                    <label>3.  表达式 .join('abcdefg’.split('bc’)) 的值为（  ）。</label>
+                    <label>3.  表达式 .join('abcdefg'.split('bc')) 的值为（  ）。</label>
                     <div>
                         <input type="radio" name="problem_3" value="A" /> A. adefg
                     </div>

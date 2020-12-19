@@ -2,39 +2,11 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const session = require('express-session')
+const session = require('express-session');
 
-const router = express.Router();
+const DB_CONF = require('../api/constants');
 
-/*
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'python_courses'
-});
-*/
-
-var pool = mysql.createPool({
-    connectionLimit: 10,
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
-    database: 'python_courses'
-});
-
-/*
-connection.connect();
-
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-  if (err) throw err
-
-  console.log('The solution is: ', rows[0].solution)
-});
-
-connection.end();
-*/
-
+var pool = mysql.createPool(DB_CONF);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -99,9 +71,6 @@ app.post('/api/sign-in', (req, res) => {
             // req.session.userId = results[0].ID;
             console.log("/api/sign-in... ", req.session)
             res.json({ signinUser: results });
-            // res.json({
-            //     data: results
-            // })
         });
 })
 
@@ -143,20 +112,6 @@ app.get('/api/getMyCurriculums/:personId', async (req, res) => {
             console.log('curriculum ... The solution is: ', data);
             res.json({ myCurriculums: data });
         })
-        /*
-            let sql1 = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
-            pool.query(sql1, async function(err, result) {
-                if (err) throw err;
-                for (var i = 0; i < result.length; i++) {
-                  var db_name = result[i].db_name;
-                    console.log('db_name ...', db_name);
-                    var sql = sql2.replace("{0}",db_name)
-                    var res = await getResult(sql)
-                    console.log(db_name+','+res[0].solution); //Here db_name is showed only the last one.
-                };
-                pool.end()
-              });
-              */
     }
 });
 
@@ -254,12 +209,9 @@ app.get('/api/getMyStudy/:personId', async (req, res) => {
     // pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.params.personId], async function (err, results, fields) {
     let sql3 = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
     let data3 = await getResult(sql3);
-    // debugger
-    // data3[0].Person_id
     console.log("Person Study .... ", data3)
     let myStudy = {};
     if (data3.length > 0) {
-
         // for (let i = 0; i < data3.length; i++) {
         //     if ((data3[i].Associated_Section_id + '') in Object.keys(myStudy)) {
         //         continue

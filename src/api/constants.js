@@ -6,6 +6,13 @@ if (process.env.NODE_ENV === "development") {
   API = "https://be-prepared-app-bk.herokuapp.com";
 }
 
+export const DB_CONF = {
+  connectionLimit: 10,
+  host: 'localhost',
+  user: 'root',
+  password: 'root',
+  database: 'python_courses'
+};
 export const GLOBAL_COURSE_ID = "1";
 export const API_HOST = API;
 export const METHODS = {

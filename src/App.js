@@ -8,6 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 import { connect } from "react-redux";
 import * as auth from "./services/Session";
+import Login from "./components/login/Login";
 
 const App = () => (
   <Router basename={process.env.REACT_APP_BASENAME || ""}>
@@ -25,27 +26,6 @@ const App = () => (
                 </route.layout>
               );
             })}
-          // component={withTracker(props => {
-          //   if (auth.isLoggedIn() === true) {
-          //     return (
-          //       <route.layout {...props}>
-          //         <route.component {...props} />
-          //       </route.layout>
-          //     );
-          //   } else {
-          //     return (
-          //       <Redirect
-          //         to={{
-          //           pathname: "/sign-in"
-          //           // state: { from: props.location }
-          //         }}
-          //       />
-          //     )
-          //   }
-          // })}
-          //         )
-          //       }
-          // })}
           // render={props => {
           //   if (auth.isLoggedIn() === true) {
           //     return (
@@ -57,8 +37,8 @@ const App = () => (
           //     return (
           //       <Redirect
           //         to={{
-          //           pathname: "/"
-          //           // state: { from: props.location }
+          //           pathname: "/",
+          //           state: { from: props.location }
           //         }}
           //       />
           //     )

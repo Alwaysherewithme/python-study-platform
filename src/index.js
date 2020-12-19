@@ -6,12 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 
-import { createStore } from "redux";
-// import {  } from "redux-thunk";
-import rootReducer from "./store/Reducer";
-
-// const store = createStore(rootReducer);
-
 ReactDOM.render(
     <Provider store={store}>
         <App />

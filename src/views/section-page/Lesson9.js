@@ -188,7 +188,7 @@ set.remove("grape")   # 删除不存在的元素，系统将报错。
             <Col>
                 <h3>小测试</h3>
                 <form id="testForm">
-                    <label>1.  表达式{1, 2, 3, 4} - {3, 4, 5, 6}的值为（  ）。</label>
+                    <label>1.  表达式{'1, 2, 3, 4'} - {'3, 4, 5, 6'}的值为（  ）。</label>
                     <div>
                         <input type="radio" name="problem_1" value="A" /> A. {'{1,2,5,6}'}
                     </div>

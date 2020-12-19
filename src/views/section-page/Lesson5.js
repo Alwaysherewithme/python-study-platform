@@ -50,7 +50,7 @@ export const Lesson5 = () => (
               <td>x ** y</td>
             </tr>
             <tr>
-              <td>//</td>
+              <td>{'//'}</td>
               <td>取整数</td>
               <td>x // y</td>
             </tr>
