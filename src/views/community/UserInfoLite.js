@@ -70,7 +70,7 @@ this.state.socket.onmessage = ({data}) => {
             }       
             var divscll = document.getElementById('content_2');
             divscll.scrollTop = divscll.scrollHeight;
-            document.getElementById('communicationTab').style.display='inline';
+            this.callback(message.username, true)
   }
     }
 }
