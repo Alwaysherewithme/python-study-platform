@@ -104,16 +104,19 @@ class Moments extends React.Component {
       render() {
        let discussions = this.state.discussions;
        let open = this.state.open;
-       return(<Card small className="blog-comments">
+       return (
+       <Card small className="mb-4 pt-3">
         <CardHeader className="border-bottom">
-            <div className="row">
-                <h6 className="m-0">&nbsp;动态</h6>
-                <ButtonGroup size="sm" className='offset-10'>
-                    <Button theme="white" onClick={this.toggle.bind(this)}> 
-                        发表
-                    </Button>
-                </ButtonGroup>
-            </div>
+        <Row>
+          <Col>
+            <h6 className="m-0">动态</h6>
+          </Col>
+          <Col className='text-right'>
+            <ButtonGroup size="sm">
+              <Button theme="white" onClick={this.toggle.bind(this)}>发表</Button>
+            </ButtonGroup>
+          </Col>
+        </Row>
         </CardHeader>
     
         <CardBody className="p-0" style={{height:333 +"px"}}>

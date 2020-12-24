@@ -30,7 +30,7 @@ class PublicCommunity extends React.Component {
       }
 
 
-      componentWillMount(){
+      componentDidMount(){
     
         setInterval(function(){ fetch(`http://localhost:8080/user/onlineUsers`, {
             method: 'get',
@@ -75,13 +75,14 @@ class PublicCommunity extends React.Component {
 
     render() {
         let tabActiveIndex = this.state.tabActiveIndex;
+        console.log(this.state)
        return (
-        <Card small className="h-70">
+        <Card small className="mb-4 pt-3">
             {/* Card Header */}
-            <CardHeader className="border-bottom">
+            <CardHeader>
                 <Nav tabs>
-                    <NavItem key='1'><NavLink activeClassName="nav-active" onClick={this.handleTabClick.bind(this, 0)}>公屏</NavLink></NavItem>
-                    <NavItem key='2'><NavLink activeClassName="nav-active" onClick={this.handleTabClick.bind(this, 1)}>好友</NavLink></NavItem>
+                    <NavItem key='1'><NavLink activeclassname="nav-active" onClick={this.handleTabClick.bind(this, 0)}>公屏</NavLink></NavItem>
+                    <NavItem key='2'><NavLink activeclassname="nav-active" onClick={this.handleTabClick.bind(this, 1)}>好友</NavLink></NavItem>
                 </Nav>
             </CardHeader>
             <div className={"tab-pane fade"+ (tabActiveIndex === 0 ? '"show active"': '')} style={{display:(tabActiveIndex === 0 ? 'inline': 'none')}}>
@@ -96,8 +97,8 @@ class PublicCommunity extends React.Component {
                         <FormInput id="message"/>
                         </FormGroup>
                         {/* Create Draft */}
-                        <FormGroup className="mb-0">
-                        <Button theme="accent" onClick={this.send.bind(this)} className="offset-9">
+                        <FormGroup className="mb-0 text-right">
+                        <Button theme="accent" onClick={this.send.bind(this)}>
                             发送
                         </Button>
                         </FormGroup>
@@ -109,7 +110,7 @@ class PublicCommunity extends React.Component {
                 <Form id='myForm' className="quick-post-form">
                     <FormGroup className="mb-0">
                         <ListGroup>{                
-                            this.state.userlist.map(item => <ListGroupItem action='true' id={item} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)                          
+                            this.state.userlist.map((idx, item) => <ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)                          
                         }
                         </ListGroup>
                         </FormGroup>
