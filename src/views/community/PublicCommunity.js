@@ -76,7 +76,7 @@ class PublicCommunity extends React.Component {
     render() {
         let tabActiveIndex = this.state.tabActiveIndex;
        return (
-        <Card small className="h-50">
+        <Card small className="h-70">
             {/* Card Header */}
             <CardHeader className="border-bottom">
                 <Nav tabs>
