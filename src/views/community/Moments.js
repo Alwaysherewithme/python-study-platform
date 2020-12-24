@@ -134,7 +134,7 @@ class Moments extends React.Component {
                 <p className="m-0 my-1 mb-2 text-muted">{discussion.content}</p>
     
                 {/* Content :: Actions */}
-                <div className="blog-comments__actions">
+                {/*<div className="blog-comments__actions">
                   <ButtonGroup size="sm">
                     <Button theme="white">
                       <span className="thumb_up">
@@ -149,7 +149,7 @@ class Moments extends React.Component {
                       踩
                     </Button>
                   </ButtonGroup>
-                </div>
+          </div>*/}
               </div>
             </div>
           ))}
