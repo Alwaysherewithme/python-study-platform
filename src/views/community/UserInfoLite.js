@@ -60,11 +60,22 @@ this.state.socket.onmessage = ({data}) => {
             divscll.scrollTop = divscll.scrollHeight;
   }else if(message.type === "SPEAK"){
             console.log('speak to someone' + data);
+            if(message.username == document.getElementById("from").innerText){
+              document.getElementById("content_2").innerHTML += (message.username+":"+ message.msg+'<hr/>');
+
+            }else{
+              document.getElementById("from").innerText = message.username;     
+              document.getElementById("content_2").innerHTML = (message.username+":"+ message.msg+'<hr/>');
+  
+            }       
+            var divscll = document.getElementById('content_2');
+            divscll.scrollTop = divscll.scrollHeight;
   }
     }
 }
 
   callback(user,flag) {
+    this.setState({user:user})
     document.getElementById('communicationTab').style.display=(flag == true ? 'inline' : 'none');
   }
 
@@ -75,12 +86,12 @@ this.state.socket.onmessage = ({data}) => {
           <PageTitle title="交流社区" subtitle="交流 /" md="12" className="ml-sm-auto mr-sm-auto" />
         </Row>
         <div id='communicationTab' className='col-lg-4' style={{position:'absolute',left:'35%',top:'55%',zIndex:'1000',display:'none'}}>
-          <Communication user={this.state.user} socket={this.state.socket}/>
+          <Communication callback={this.callback.bind(this)} user={this.state.user} socket={this.state.socket}/>
         </div>
         <Row>
           <Col lg="4">
             <UserInfoDetails />
-            <PublicCommunity callback={this.callback} socket={this.state.socket}/>
+            <PublicCommunity callback={this.callback.bind(this)} socket={this.state.socket}/>
           </Col>
           <Col lg="8">
             <Moments />

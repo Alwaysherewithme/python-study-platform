@@ -109,7 +109,7 @@ class PublicCommunity extends React.Component {
                 <Form id='myForm' className="quick-post-form">
                     <FormGroup className="mb-0">
                         <ListGroup>{                
-                            this.state.userlist.map(item => <ListGroupItem action='true' id={item} onClick={this.changeItem(item)}>{item}</ListGroupItem>)                          
+                            this.state.userlist.map(item => <ListGroupItem action='true' id={item} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)                          
                         }
                         </ListGroup>
                         </FormGroup>

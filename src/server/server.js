@@ -6,9 +6,10 @@ const session = require('express-session');
 
 const pool = mysql.createPool({
     connectionLimit: 10,
-    host: 'localhost',
-    user: 'root',
-    password: 'root',
+    host: 'database-1.caqhpapiz7d2.us-east-1.rds.amazonaws.com',
+    port: 3306,
+    user: 'admin',
+    password: 'admin123',
     database: 'python_courses'
 });
 
