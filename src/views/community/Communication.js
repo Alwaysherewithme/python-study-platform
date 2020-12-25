@@ -58,7 +58,7 @@ class Communication extends React.Component {
                         </FormGroup>
                         {/* Title */}
                         <FormGroup>
-                        <FormInput id="message_2"/>
+                        <FormInput id="message_2" placeholder="我们聊聊吧" />
                         </FormGroup>
                         {/* Create Draft */}
                         <FormGroup className="mb-0">

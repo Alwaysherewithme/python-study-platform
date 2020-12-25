@@ -15,7 +15,7 @@ class UserInfoLite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: null,
+      socket: {},
       user:''
     }
 
@@ -23,57 +23,58 @@ class UserInfoLite extends React.Component {
 
 
   componentWillUnmount(){
-    if(this.state.socket != null) this.state.socket.close();
-}
+    if("{}" !== JSON.stringify(this.state.socket)) this.state.socket.close();
+  }
 
 
-componentWillMount(){
+componentDidMount(){
+  let socket = this.state.socket;
+  
+  // this.state.socket = new WebSocket(`ws://${API_HOST_Socket.split("//")[1]}//chat`);
+  socket = new WebSocket(`ws://${API_HOST_Socket.split("//")[1]}//chat`);
+
+  // this.state.socket.onopen = () => {			console.log('WebSocket打开连接');
+  socket.onopen = () => {
+    console.log('WebSocket打开连接');
     
-
-    this.state.socket = new WebSocket(`ws://${API_HOST_Socket.split("//")[1]}//chat`);
-
-    this.state.socket.onopen = () => {			console.log('WebSocket打开连接');
-    
-    
-
-    this.state.socket.send(JSON.stringify({
+    socket.send(JSON.stringify({
         type : "ENTER",
         to : '',
         username : auth.getItem("name"),
         msg : 'ENTER'
     }));
-    
-
-
-
-}
-
-this.state.socket.onmessage = ({data}) => {
-        console.log(data);
-
-        console.log('WebSocket收到消息：%c' + data, 'color:green');
-  // 获取服务端消息
-  var message = JSON.parse(data) || {};
-  if (message.type === 'SPEAKTOALL' && message.username !== auth.getItem("name")) {
-            console.log('speak to all' + data);
-            document.getElementById("content").innerHTML += (message.username+":"+ message.msg+'<hr/>');
-            var divscll = document.getElementById('content');
-            divscll.scrollTop = divscll.scrollHeight;
-  }else if(message.type === "SPEAK"){
-            console.log('speak to someone' + data);
-            if(message.username === document.getElementById("from").innerText){
-              document.getElementById("content_2").innerHTML += (message.username+":"+ message.msg+'<hr/>');
-
-            }else{
-              document.getElementById("from").innerText = message.username;     
-              document.getElementById("content_2").innerHTML = (message.username+":"+ message.msg+'<hr/>');
-  
-            }       
-            var divscll2 = document.getElementById('content_2');
-            divscll2.scrollTop = divscll2.scrollHeight;
-            this.callback(message.username, true);
   }
+
+  socket.onmessage = ({data}) => {
+    console.log(data);
+    console.log('WebSocket收到消息：%c' + data, 'color:green');
+
+    // 获取服务端消息
+    var message = JSON.parse(data) || {};
+    if (message.type === 'SPEAKTOALL' && message.username !== auth.getItem("name")) {
+      console.log('speak to all' + data);
+      document.getElementById("content").innerHTML += (message.username+":"+ message.msg+'<hr/>');
+      var divscll = document.getElementById('content');
+      divscll.scrollTop = divscll.scrollHeight;
+    }else if(message.type === "SPEAK"){
+      console.log('speak to someone' + data);
+      if(message.username === document.getElementById("from").innerText){
+        document.getElementById("content_2").innerHTML += (message.username+":"+ message.msg+'<hr/>');
+
+      }else{
+        document.getElementById("from").innerText = message.username;     
+        document.getElementById("content_2").innerHTML = (message.username+":"+ message.msg+'<hr/>');
+
+      }       
+      var divscll2 = document.getElementById('content_2');
+      divscll2.scrollTop = divscll2.scrollHeight;
+      this.callback(message.username, true);
     }
+  }
+
+  this.setState({
+    socket
+  })
 }
 
   callback(user,flag) {

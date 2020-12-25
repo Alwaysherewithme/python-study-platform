@@ -22,28 +22,35 @@ class PublicCommunity extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          loginName: '',
-          tabActiveIndex:0,
-          userlist: []
+            socketCall: null,
+            loginName: '',
+            tabActiveIndex:0,
+            userlist: []
         }
     
       }
 
 
-      componentDidMount(){
+    componentDidMount(){
     
-        setInterval(function(){ fetch(`${API_HOST_Socket}/user/onlineUsers`, {
-            method: 'get',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({userlist:data})
-            }); }.bind(this), 3000);
-        }
+        this.setState({
+            socketCall: setInterval(function(){ fetch(`${API_HOST_Socket}/user/onlineUsers`, {
+                method: 'get',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json;charset=utf-8'
+                },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({userlist:data})
+                }); }.bind(this), 3000)
+        })
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.state.socketCall)
+    }
 
 
     handleTabClick(tabActiveIndex) {
@@ -54,7 +61,7 @@ class PublicCommunity extends React.Component {
     
     send(){
         let socket = this.props.socket;
-        if (socket != null){
+        if ("{}" !== JSON.stringify(socket)){
             socket.send(JSON.stringify({
 				type : "SPEAKTOALL",
 				username : auth.getItem('name'),
