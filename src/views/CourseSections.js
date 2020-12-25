@@ -49,10 +49,14 @@ class CourseSections extends React.Component {
         let sectionData = await fetch(`${API_HOST}/api/getCourseSections/${GLOBAL_COURSE_ID}`)
             .then(function (response) {
                 return response.json();
+            }).catch(error => {
+                console.log(error);
             });
         let myStudyData = await fetch(`${API_HOST}/api/getMyStudy/${auth.getItem("uuid")}`)
             .then(function (response) {
                 return response.json();
+            }).catch(error => {
+                console.log(error);
             });
         this.setState({
             sectionDetail: sectionData.allCourseSections,

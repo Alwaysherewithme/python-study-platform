@@ -15,7 +15,7 @@ class UserInfoLite extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      socket: {},
+      socket: null,
       user:''
     }
 
@@ -23,17 +23,15 @@ class UserInfoLite extends React.Component {
 
 
   componentWillUnmount(){
-    if("{}" !== JSON.stringify(this.state.socket)) this.state.socket.close();
+    if(null !== this.state.socket) this.state.socket.close();
   }
 
 
 componentDidMount(){
   let socket = this.state.socket;
   
-  // this.state.socket = new WebSocket(`ws://${API_HOST_Socket.split("//")[1]}//chat`);
   socket = new WebSocket(`ws://${API_HOST_Socket.split("//")[1]}//chat`);
 
-  // this.state.socket.onopen = () => {			console.log('WebSocket打开连接');
   socket.onopen = () => {
     console.log('WebSocket打开连接');
     
@@ -104,8 +102,5 @@ componentDidMount(){
     );
   }
 }
-
-
-
 
 export default UserInfoLite;

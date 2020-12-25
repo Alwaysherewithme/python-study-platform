@@ -32,18 +32,18 @@ class Moments extends React.Component {
         }
     
       }
-      toggle(){
+      toggle = () =>{
         this.setState({open:!this.state.open});
       }
 
 
-      componentDidMount(){
+      componentDidMount = () => {
         this.getMoments(1);
         this.getMaxPage();
       }
 
 
-      getMaxPage(){
+      getMaxPage = () => {
         fetch(`${API_HOST_Socket}/user/maxPage`, {
             method: 'get',
             mode: 'cors',
@@ -53,10 +53,12 @@ class Moments extends React.Component {
         
       }).then(response => response.json()).then( (data) => {
               this.setState({maxPage:data})
+            }).catch(error => {
+              console.log(error);
             });
       }
 
-      getMoments(pageSize){
+      getMoments = (pageSize) => {
         fetch(`${API_HOST_Socket}/user/moment?pageSize=`+pageSize, {
             method: 'get',
             mode: 'cors',
@@ -66,10 +68,12 @@ class Moments extends React.Component {
         
       }).then(response => response.json()).then( (data) => {
               this.setState({discussions:data})
+            }).catch(error => {
+              console.log(error);
             });
       }
 
-      postMoment(){
+      postMoment = () => {
         fetch(`${API_HOST_Socket}/user/moment`, {
             method: 'post',
             mode: 'cors',
@@ -85,18 +89,20 @@ class Moments extends React.Component {
               this.setState({open:!this.state.open})
               this.getMoments(1)
               this.getMaxPage();
+            }).catch(error => {
+              console.log(error);
             });
       }
 
 
-      nextPage(){
+      nextPage = () => {
         let currentPage = this.state.page+1;
         this.setState({page:currentPage});
         this.getMoments(currentPage)
       }
 
 
-      lastPage(){
+      lastPage = () => {
         let currentPage = this.state.page-1;
         this.setState({page:currentPage});
         this.getMoments(currentPage)
@@ -123,7 +129,7 @@ class Moments extends React.Component {
         <CardBody className="p-0" style={{height:333 +"px"}}>
           <input type='hidden' value={this.state.page} />
           {
-            discussions && discussions.map((discussion, idx) => (
+            discussions.length > 0 && discussions.map((discussion, idx) => (
               <div key={idx} className="blog-comments__item d-flex p-3">
                 {/* Content */}
                 <div className="blog-comments__content">

@@ -44,7 +44,10 @@ class PublicCommunity extends React.Component {
                 .then(response => response.json())
                 .then(data => {
                     this.setState({userlist:data})
-                }); }.bind(this), 3000)
+                }).catch(error => {
+                    console.log(error);
+                  });
+                }.bind(this), 3000)
         })
     }
 
@@ -61,7 +64,7 @@ class PublicCommunity extends React.Component {
     
     send(){
         let socket = this.props.socket;
-        if ("{}" !== JSON.stringify(socket)){
+        if (null !== socket){
             socket.send(JSON.stringify({
 				type : "SPEAKTOALL",
 				username : auth.getItem('name'),
@@ -118,7 +121,9 @@ class PublicCommunity extends React.Component {
                     <FormGroup className="mb-0">
                         <ListGroup>
                         {
-                            this.state.userlist.map((item, idx) => <ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)
+                            this.state.userlist.map((item, idx) => {
+                                return auth.getItem('name') !== item ? (<ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>) : ''
+                            })
                         }
                         </ListGroup>
                         </FormGroup>
