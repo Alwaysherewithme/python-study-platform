@@ -3,18 +3,13 @@ import {
   Card,
   CardHeader,
   CardBody,
-  Nav,
-  NavItem,
-  NavLink,
   Form,
   FormGroup,
-  FormTextarea,
   FormInput,
   Button,
   ButtonGroup
 } from "shards-react";
 import * as auth from "../../services/Session";
-import PropTypes from "prop-types";
 
 
 class Communication extends React.Component {
@@ -42,7 +37,6 @@ class Communication extends React.Component {
     }
 
     render() {
-        let title = this.props.title;
         return (
             <Card small className="h-50">
             {/* Card Header */}
@@ -79,14 +73,4 @@ class Communication extends React.Component {
     }
 }
 
-Communication.propTypes = {
-    /**
-     * The component's title.
-     */
-    title: PropTypes.string
-  };
-  
-  Communication.defaultProps = {
-    title: "New Draft"
-  };
 export default Communication;

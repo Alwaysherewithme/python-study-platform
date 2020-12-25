@@ -1,9 +1,12 @@
 let API = "";
+let API_Socket = "";
 
 if (process.env.NODE_ENV === "development") {
   API = "http://localhost:5000";
+  API_Socket = "http://localhost:8080";
 } else if (process.env.NODE_ENV === "production") {
   API = "https://be-prepared-app-bk.herokuapp.com";
+  API_Socket= "";
 }
 
 export const DB_CONF = {
@@ -15,6 +18,7 @@ export const DB_CONF = {
 };
 export const GLOBAL_COURSE_ID = "1";
 export const API_HOST = API;
+export const API_HOST_Socket = API_Socket;
 export const METHODS = {
   POST: "POST",
   GET: "GET",

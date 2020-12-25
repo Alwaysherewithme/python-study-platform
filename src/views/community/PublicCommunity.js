@@ -14,6 +14,7 @@ import {
   ListGroupItem
 } from "shards-react";
 import * as auth from "../../services/Session";
+import { API_HOST_Socket } from "../../api/constants";
 
 
 
@@ -31,7 +32,7 @@ class PublicCommunity extends React.Component {
 
       componentDidMount(){
     
-        setInterval(function(){ fetch(`http://localhost:8080/user/onlineUsers`, {
+        setInterval(function(){ fetch(`${API_HOST_Socket}/user/onlineUsers`, {
             method: 'get',
             mode: 'cors',
             headers: {
@@ -108,7 +109,8 @@ class PublicCommunity extends React.Component {
                 <CardBody className="d-flex flex-column">
                 <Form id='myForm' className="quick-post-form">
                     <FormGroup className="mb-0">
-                        <ListGroup>{
+                        <ListGroup>
+                        {
                             this.state.userlist.map((item, idx) => <ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)
                         }
                         </ListGroup>

@@ -86,7 +86,7 @@ class CourseSections extends React.Component {
                         }
                     },
                     cutoutPercentage: 0,
-                    tooltips: {
+                    tooltip: {
                         custom: false,
                         mode: "index",
                         position: "nearest"
