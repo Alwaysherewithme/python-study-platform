@@ -8,7 +8,6 @@ import {
   NavLink,
   Form,
   FormGroup,
-  FormTextarea,
   FormInput,
   Button,
   ListGroup,
@@ -94,7 +93,7 @@ class PublicCommunity extends React.Component {
                         </FormGroup>
                         {/* Title */}
                         <FormGroup>
-                        <FormInput id="message"/>
+                        <FormInput id="message" placeholder="说点什么吧" />
                         </FormGroup>
                         {/* Create Draft */}
                         <FormGroup className="mb-0 text-right">
@@ -109,8 +108,8 @@ class PublicCommunity extends React.Component {
                 <CardBody className="d-flex flex-column">
                 <Form id='myForm' className="quick-post-form">
                     <FormGroup className="mb-0">
-                        <ListGroup>{                
-                            this.state.userlist.map((idx, item) => <ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)                          
+                        <ListGroup>{
+                            this.state.userlist.map((item, idx) => <ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>)
                         }
                         </ListGroup>
                         </FormGroup>
