@@ -1,6 +1,7 @@
-let API = "";
-let API_Socket = "";
+let API = "http://52.3.250.37:5000";
+let API_Socket = "http://52.3.250.37:8000";
 
+/*
 if (process.env.NODE_ENV === "development") {
   API = "http://localhost:5000";
   API_Socket = "http://localhost:8080";
@@ -8,6 +9,7 @@ if (process.env.NODE_ENV === "development") {
   API = "http://54.147.38.95:5000";
   API_Socket= "http://54.147.38.95:8000";
 }
+*/
 
 export const DB_CONF = {
   connectionLimit: 10,
