@@ -12,6 +12,7 @@ import {
 
 import PageTitle from "../components/common/PageTitle";
 import { API_HOST } from "../api/constants";
+import * as auth from "../services/Session";
 import Errors from "./Errors";
 
 class CoursePosts extends React.Component {
@@ -19,26 +20,45 @@ class CoursePosts extends React.Component {
     super(props);
 
     this.state = {
-      coursePosts: []
+      coursePosts: [],
+      myCurriculums: null
     };
   }
 
   async componentDidMount() {
-    let data = await fetch(`${API_HOST}/api/getAllCurriculumCourses/${window.location.search.split("=")[1]}`)
+    let coursesData = await fetch(`${API_HOST}/api/getAllCurriculumCourses/${window.location.search.split("=")[1]}`)
+      .then(function (response) {
+        return response.json();
+      }).catch(error => {
+        console.log(error);
+    });
+    let curriculumData = await fetch(`${API_HOST}/api/getMyCurriculums/${auth.getItem('uuid')}`)
       .then(function (response) {
         return response.json();
       }).catch(error => {
         console.log(error);
     });
     this.setState({
-      coursePosts: data.allCurriculumCourses
+      coursePosts: coursesData.allCurriculumCourses,
+      myCurriculums: curriculumData.myCurriculums
     });
   }
 
   render() {
     const {
-      coursePosts
+      coursePosts, myCurriculums
     } = this.state;
+
+    let isMyCurriculum = false;
+    
+    if(null !== myCurriculums) {
+      for(let i=0; i<myCurriculums.length; i++) {
+        if(Number(window.location.search.split("=")[1]) === myCurriculums[i].id){
+          isMyCurriculum = true;
+          break;
+        }
+      }
+    }
 
     return (
       <Container fluid className="main-content-container px-4">
@@ -62,12 +82,17 @@ class CoursePosts extends React.Component {
                     
                   </div>
                   <div className="my-auto ml-auto">
-                    <a
-                       href={`/course-sections?coid=${post.id}`}
-                       className="text-right view-report"
-                    >
-                      我要学习 &rarr;
-                    </a>
+                    {
+                      isMyCurriculum ?
+                        <a
+                           href={`/course-sections?coid=${post.id}`}
+                           className="text-right view-report"
+                        >
+                          我要学习 &rarr;
+                        </a>
+                        :
+                        <span className="text-right view-report">暂未加入</span>
+                    }
                   </div>
                 </CardFooter>
               </Card>

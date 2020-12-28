@@ -30,6 +30,7 @@ app.use(function (req, res, next) {
     next();
 });
 
+/*
 app.use(session({
     secret: 'keyboard cat',
     name: 'my_session_cookie_name',
@@ -41,6 +42,7 @@ app.use(session({
     },
     rolling: true
 }))
+*/
 
 // app.use(bodyParser.json());
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -56,8 +58,8 @@ app.post('/api/sign-in', (req, res) => {
     pool.query('SELECT * FROM person WHERE Name = ?',
         req.body.name, function (err, results, fields) {
             if (err) throw err;
-            req.session.userName = results[0].Name;
-            req.session.userId = results[0].ID;
+            // req.session.userName = results[0].Name;
+            // req.session.userId = results[0].ID;
             res.json({ signinUser: results });
         });
 })
@@ -86,7 +88,6 @@ app.get('/api/getAllCurriculums', (req, res) => {
 async function getCurriculumsByUser(personId) {
     let sql = `SELECT DISTINCT Associated_Curriculum_id FROM curriculum_person WHERE Person_id = ${personId}`;
     let result = await getResult(sql);
-    console.log(" -------  getCruByUser -------", result)
     let associatedCurriculumIds = new Set();
     for (let i = 0; i < result.length; i++) {
         if(result[i].Associated_Curriculum_id) {
@@ -115,23 +116,17 @@ app.get('/api/getMyCurriculums/:personId', async (req, res) => {
     // }
     */
     let associatedCurriculumIds = await getCurriculumsByUser(req.params.personId);
-    console.log("----- getMyCurri -----", associatedCurriculumIds, req.params, associatedCurriculumIds.length);
-    console.log("-----",associatedCurriculumIds.length > 0 ? associatedCurriculumIds.toString() : '');
     let myCurriculums = null;
     if(associatedCurriculumIds.length > 0) {
         let sql = `SELECT * FROM curriculum WHERE id IN (${associatedCurriculumIds.toString()})`;
-        console.log('------ sql -------', sql);
         let result = await getResult(sql);
-        console.log("----- get -----", sql, result);
         myCurriculums = result;
     }
     res.json({ myCurriculums: myCurriculums });
-    //}
 });
 
 app.post('/api/postMyCurriculum', async (req, res) => {
     let associatedCurriculumIds = await getCurriculumsByUser(req.body.Person_id);
-    console.log("------ postMyCurriculum ------", associatedCurriculumIds, req.body);
     if(associatedCurriculumIds.indexOf(req.body.Associated_Curriculum_id) === -1) {
         pool.query('INSERT INTO curriculum_person SET ?', //req.body
             {
@@ -153,20 +148,16 @@ app.get('/api/getAllCurriculumCourses/:curriculumId', async (req, res) => {
         associatedCourseIds.add(result[i].Associated_Course_id);
     }
     let allCurriculumCourses = null;
-    console.log("----- getAllCurriCourse -----", associatedCourseIds, [...associatedCourseIds])
     if([...associatedCourseIds].length > 0) {
         let sql2 = `SELECT * FROM course WHERE id IN (${[...associatedCourseIds].toString()})`;
-        console.log("------ ", sql2)
         allCurriculumCourses = await getResult(sql2);
     }
-    console.log('----- allCurCour -----', allCurriculumCourses);
     res.json({ allCurriculumCourses: allCurriculumCourses });
 });
 
 app.get('/api/courses/:id', (req, res) => {
     pool.query('SELECT * FROM courses WHERE id = ?', [req.params.id], function (err, results, fields) {
         if (err) throw err;
-        console.log('The query sql is: ', results, fields);
         res.json({ course: results });
     });
 });
@@ -218,10 +209,8 @@ app.post('/api/postMySectionAnswers', async (req, res) => {
 });
 
 app.get('/api/getMyStudy/:personId', async (req, res) => {
-    console.log("/api/getMyStudy ... ", req.session.userName)
     let sql = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
     let result = await getResult(sql);
-    console.log(" ---- getMyStudy ----", result)
     let myStudy = {};
     if (result.length > 0) {
         // for (let i = 0; i < data3.length; i++) {
@@ -235,9 +224,7 @@ app.get('/api/getMyStudy/:personId', async (req, res) => {
             !myStudy[item.Associated_Section_id] && (myStudy[item.Associated_Section_id] = item)
         })
     }
-    console.log('--------', myStudy)
     res.json({ myStudy: myStudy });
-
 });
 
 

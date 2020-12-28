@@ -44,7 +44,6 @@ class MainSidebar extends React.Component {
       "col-12",
       this.state.menuVisible && "open"
     );
-    console.log("MainSideBar ... ", Store, Store.getMenuState())
 
     return (
       <Col

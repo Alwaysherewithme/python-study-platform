@@ -68,6 +68,7 @@ class CurriculumPosts extends React.Component {
   }
 
   postMyCurriculum = async (e, curriculumId) => {
+    e.preventDefault()
     let data = {
       Person_id: Number(auth.getItem("uuid")),
       Associated_Curriculum_id: curriculumId
