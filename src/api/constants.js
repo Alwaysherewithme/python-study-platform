@@ -5,8 +5,8 @@ if (process.env.NODE_ENV === "development") {
   API = "http://localhost:5000";
   API_Socket = "http://localhost:8080";
 } else if (process.env.NODE_ENV === "production") {
-  API = "https://be-prepared-app-bk.herokuapp.com";
-  API_Socket= "";
+  API = "http://54.147.38.95:5000";
+  API_Socket= "http://54.147.38.95:8000";
 }
 
 export const DB_CONF = {
