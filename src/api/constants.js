@@ -1,5 +1,5 @@
-let API = "http://52.3.250.37:5000";
-let API_Socket = "http://52.3.250.37:8000";
+let API = "http://18.204.37.108:5000";
+let API_Socket = "http://18.204.37.108:8000";
 
 /*
 if (process.env.NODE_ENV === "development") {
