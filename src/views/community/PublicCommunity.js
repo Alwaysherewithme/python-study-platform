@@ -121,9 +121,9 @@ class PublicCommunity extends React.Component {
                     <FormGroup className="mb-0">
                         <ListGroup>
                         {
-                            this.state.userlist.map((item, idx) => {
+                            this.state.userlist.length >1 ? this.state.userlist.map((item, idx) => {
                                 return auth.getItem('name') !== item ? (<ListGroupItem key={idx} onClick={this.changeItem.bind(this,item)}>{item}</ListGroupItem>) : ''
-                            })
+                            }) : <h5>还没有好友在线哦</h5>
                         }
                         </ListGroup>
                         </FormGroup>

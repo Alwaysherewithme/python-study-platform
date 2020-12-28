@@ -48,7 +48,7 @@ class Login extends React.Component {
             auth.setItem("uuid", data.signinUser[0].ID);
             auth.setItem("name", data.signinUser[0].Name);
             auth.setItem("token", `${data.signinUser[0].ID}_${data.signinUser[0].Name}`)
-            this.props.history.push('/course-sections');
+            this.props.history.push('/curriculum-posts');
           } else {
             alert("此用户不存在")
           }

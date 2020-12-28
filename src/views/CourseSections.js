@@ -9,20 +9,23 @@ import {
     Progress
 } from "shards-react";
 import sectionPage from './section-page';
-import { API_HOST, GLOBAL_COURSE_ID } from "../api/constants";
+import { API_HOST } from "../api/constants";
 
 import PageTitle from "../components/common/PageTitle";
 import Chart from '../utils/chart';
 
 import * as auth from "../services/Session";
+import Errors from "./Errors";
 
-
+// var __html = require('../test_section_2.html');
+// var template = { __html: '<h1>H!</h1>' };
+// var template = { __html: __html };
 
 class CourseSections extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            course: {},
+            curriculum: [],
             sectionDetail: {},
             allSections: [],
             currentSection: {},
@@ -46,7 +49,13 @@ class CourseSections extends React.Component {
     }
 
     async componentDidMount() {
-        let sectionData = await fetch(`${API_HOST}/api/getCourseSections/${GLOBAL_COURSE_ID}`)
+        let curriculumData = await fetch(`${API_HOST}/api/getCourseCurriculum/${window.location.search.split("=")[1]}`)
+            .then(function (response) {
+                return response.json();
+            }).catch(error => {
+                console.log(error);
+            });
+        let sectionData = await fetch(`${API_HOST}/api/getCourseSections/${window.location.search.split("=")[1]}`)
             .then(function (response) {
                 return response.json();
             }).catch(error => {
@@ -59,6 +68,7 @@ class CourseSections extends React.Component {
                 console.log(error);
             });
         this.setState({
+            curriculum: curriculumData.courseCurriculum,
             sectionDetail: sectionData.allCourseSections,
             allSections: sectionData.allCourseSections,
             currentSection: sectionData.allCourseSections[0],
@@ -99,10 +109,11 @@ class CourseSections extends React.Component {
                 ...this.props.chartOptions
             }
         };
-        new Chart(this.canvasRef.current, chartConfig);
+        this.canvasRef.current && new Chart(this.canvasRef.current, chartConfig);
     }
 
-    getCurrentSection = (idx) => {
+    getCurrentSection = (e, idx) => {
+        e.preventDefault();
         let curl = this.state.allSections[idx];
         this.setState({
             currentSection: curl,
@@ -120,6 +131,8 @@ class CourseSections extends React.Component {
             let data = {
                 Person_id: auth.getItem("uuid"),
                 Associated_Section_id: sectionId,
+                Associated_Curriculum_id: this.state.curriculum[0].Associated_Curriculum_id,
+                Associated_Course_id: window.location.search.split("=")[1],
                 Answer_Person: myRadioInput1 + "," + myRadioInput2 + "," + myRadioInput3
             }
             fetch(`${API_HOST}/api/postMySectionAnswers`, {
@@ -145,9 +158,11 @@ class CourseSections extends React.Component {
         return (
             <Container fluid className="main-content-container px-4">
                 <Row noGutters className="page-header py-4">
-                    <PageTitle title="章节学习" subtitle="理论 /" md="12" className="ml-sm-auto mr-sm-auto" />
+                    <PageTitle title="章节学习" subtitle="理论 / 课程大纲 / 课程列表 /" md="12" className="ml-sm-auto mr-sm-auto" />
                 </Row>
-                <Row>
+                {
+                allSections.length > 0 ?
+                    (<Row>
                     <Col lg="3">
                         <Card small className="mb-4 pt-3">
                             <CardHeader className="border-bottom text-center">
@@ -160,7 +175,7 @@ class CourseSections extends React.Component {
                             <ListGroup flush>
                                 {
                                     allSections.map((section, idx) => (
-                                        <ListGroupItem key={idx} className="px-4" onClick={() => { this.getCurrentSection(idx) }}>
+                                        <ListGroupItem key={idx} className="px-4" onClick={(e) => { this.getCurrentSection(e, idx) }}>
                                             <div className="progress-wrapper">
                                                 <strong className="text-muted d-block mb-2">
                                                     {`${section.Section_ID} - ${section.Title}`}
@@ -188,17 +203,19 @@ class CourseSections extends React.Component {
                     <Col lg="9">
                         <Card small className="mb-4">
                             <CardHeader className="border-bottom">
+                            <a className="m-0" href={`/course-posts?coid=${window.location.search.split("=")[1]}`}>&larr; 返回课程列表</a>
                             </CardHeader>
                             <ListGroup flush>
                                 <ListGroupItem className="p-3">
                                     <Row>
                                         <Col>
                                             {currentSectionContent()}
+                                            {/* <iframe sandbox="allow-same-origin" srcDoc={__html} /> */}
+                                            {/* <div dangerouslySetInnerHTML={template}></div> */}
                                         </Col>
                                     </Row>
                                     <Row>
                                         <Col md="12" className="form-group text-center">
-                                            {/* <button click={(e) => this.submitTest(e, currentSection.ID)}>Submit Test</button> */}
                                             <Button theme="accent" onClick={e => this.submitTest(e, currentSection.Section_ID)} >提交答案</Button>
                                         </Col>
                                     </Row>
@@ -206,7 +223,9 @@ class CourseSections extends React.Component {
                             </ListGroup>
                         </Card>
                     </Col>
-                </Row>
+                </Row>)
+                 : <Errors />
+                }
             </Container>
         )
     }

@@ -14,6 +14,8 @@ import CourseSections from "./views/CourseSections";
 import Login from "./components/login/Login";
 import CodeTestDetail from "./views/CodeTestDetail";
 import UserProfileLite from "./views/UserProfileLite";
+import CurriculumPosts from "./views/CurriculumPosts";
+import CoursePosts from "./views/CoursePosts";
 
 export default [
   {
@@ -66,5 +68,15 @@ export default [
     path: "/course-sections",
     layout: DefaultLayout,
     component: CourseSections
+  },
+  {
+    path: "/curriculum-posts",
+    layout: DefaultLayout,
+    component: CurriculumPosts
+  },
+  {
+    path: "/course-posts",
+    layout: DefaultLayout,
+    component: CoursePosts
   }
 ];

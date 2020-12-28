@@ -13,6 +13,17 @@ const pool = mysql.createPool({
     database: 'python_courses'
 });
 
+/*
+const pool = mysql.createPool({
+    connectionLimit: 10,
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'python_courses'
+});
+*/
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -72,43 +83,84 @@ app.get('/api/getAllCurriculums', (req, res) => {
     });
 });
 
+async function getCurriculumsByUser(personId) {
+    let sql = `SELECT DISTINCT Associated_Curriculum_id FROM curriculum_person WHERE Person_id = ${personId}`;
+    let result = await getResult(sql);
+    console.log(" -------  getCruByUser -------", result)
+    let associatedCurriculumIds = new Set();
+    for (let i = 0; i < result.length; i++) {
+        if(result[i].Associated_Curriculum_id) {
+            associatedCurriculumIds.add(result[i].Associated_Curriculum_id);
+        }
+    }
+    return [...associatedCurriculumIds];
+}
+
+
 app.get('/api/getMyCurriculums/:personId', async (req, res) => {
-    if (req.params.Person_id == req.session.userId) {
-        // pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.params.personId], async function (err, results, fields) {
-        pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.session.userId], async function (err, results, fields) {
+    /*
+    // if (req.params.Person_id == req.session.userId) {
+        pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.params.personId], async function (err, results, fields) {
+        // pool.query('SELECT * FROM person_study WHERE Person_id = ?', [req.session.userId], async function (err, results, fields) {
             if (err) throw err;
-            let associatedCurriculumIds = [];
+            const associatedCurriculumIds = new Set();
             for (let i = 0; i < results.length; i++) {
-                associatedCurriculumIds.push(results[i].Associated_Curriculum_id);
+                associatedCurriculumIds.add(results[i].Associated_Curriculum_id);
             }
-            let sql = `SELECT * FROM curriculum WHERE id IN (${associatedCurriculumIds.join(',')})`;
+            // let sql = `SELECT * FROM curriculum WHERE id IN (${associatedCurriculumIds.join(',')})`;
+            let sql = `SELECT * FROM curriculum WHERE id IN (${[...associatedCurriculumIds].toString()})`;
             let result = await getResult(sql);
             res.json({ myCurriculums: result });
         })
+    // }
+    */
+    let associatedCurriculumIds = await getCurriculumsByUser(req.params.personId);
+    console.log("----- getMyCurri -----", associatedCurriculumIds, req.params, associatedCurriculumIds.length);
+    console.log("-----",associatedCurriculumIds.length > 0 ? associatedCurriculumIds.toString() : '');
+    let myCurriculums = null;
+    if(associatedCurriculumIds.length > 0) {
+        let sql = `SELECT * FROM curriculum WHERE id IN (${associatedCurriculumIds.toString()})`;
+        console.log('------ sql -------', sql);
+        let result = await getResult(sql);
+        console.log("----- get -----", sql, result);
+        myCurriculums = result;
     }
+    res.json({ myCurriculums: myCurriculums });
+    //}
 });
 
-app.post('/api/postMyCurriculums', (req, res) => {
-    pool.query('INSERT INTO person_study SET ?',
-        {
-            ...req.body,
-            Person_id: req.session.userId
-        }, function (err, results, fields) {
-            if (err) throw err;
-            res.json({ myCurriculums: results });
-        });
+app.post('/api/postMyCurriculum', async (req, res) => {
+    let associatedCurriculumIds = await getCurriculumsByUser(req.body.Person_id);
+    console.log("------ postMyCurriculum ------", associatedCurriculumIds, req.body);
+    if(associatedCurriculumIds.indexOf(req.body.Associated_Curriculum_id) === -1) {
+        pool.query('INSERT INTO curriculum_person SET ?', //req.body
+            {
+                ...req.body
+            }, function (err, results, fields) {
+                if (err) throw err;
+                res.json({ myCurriculum: results });
+            });
+    } else {
+        res.json({ msg: "大纲已经加过啦！" })
+    }
 });
 
 app.get('/api/getAllCurriculumCourses/:curriculumId', async (req, res) => {
     let sql = `SELECT * FROM curriculumcourse WHERE Associated_Curriculum_id = ${req.params.curriculumId}`;
     let result = await getResult(sql);
-    let associatedCourseIds = [];
+    let associatedCourseIds = new Set();
     for (let i = 0; i < result.length; i++) {
-        associatedCourseIds.push(result[i].Associated_Course_id);
+        associatedCourseIds.add(result[i].Associated_Course_id);
     }
-    let sql2 = `SELECT * FROM course WHERE id IN (${associatedCourseIds.join(',')})`;
-    let result2 = await getResult(sql2);
-    res.json({ allCurriculumCourses: result2 });
+    let allCurriculumCourses = null;
+    console.log("----- getAllCurriCourse -----", associatedCourseIds, [...associatedCourseIds])
+    if([...associatedCourseIds].length > 0) {
+        let sql2 = `SELECT * FROM course WHERE id IN (${[...associatedCourseIds].toString()})`;
+        console.log("------ ", sql2)
+        allCurriculumCourses = await getResult(sql2);
+    }
+    console.log('----- allCurCour -----', allCurriculumCourses);
+    res.json({ allCurriculumCourses: allCurriculumCourses });
 });
 
 app.get('/api/courses/:id', (req, res) => {
@@ -119,10 +171,10 @@ app.get('/api/courses/:id', (req, res) => {
     });
 });
 
-app.get('/api/getAllCourseSections/:courseId', async (req, res) => {
-    let sql = `SELECT * FROM coursesection WHERE Associated_Course_id = ${req.params.courseId}`;
+app.get('/api/getCourseCurriculum/:courseId', async (req, res) => {
+    let sql = `SELECT * FROM curriculumcourse WHERE Associated_Course_id = ${req.params.courseId}`;
     let result = await getResult(sql);
-    res.json({ allCourseSections: result });
+    res.json({ courseCurriculum: result });
 });
 
 app.get('/api/getCourseSections/:courseId', async (req, res) => {
@@ -134,31 +186,34 @@ app.get('/api/getCourseSections/:courseId', async (req, res) => {
 app.post('/api/postMySectionAnswers', async (req, res) => {
     let sql = `SELECT * FROM coursesection WHERE Section_ID = (${req.body.Associated_Section_id})`;
     let result = await getResult(sql);
-    let trueAnswers = result[0].Answer.split(',')
-    let personAnswers = req.body.Answer_Person.split(',')
-    let mark = 0;
-    for (let i = 0; i < trueAnswers.length; i++) {
-        if (trueAnswers[i] == personAnswers[i]) {
-            mark++
+    if(result.length > 0) {
+        let trueAnswers = result[0].Answer.split(',')
+        let personAnswers = req.body.Answer_Person.split(',')
+        let mark = 0;
+        for (let i = 0; i < trueAnswers.length; i++) {
+            if (trueAnswers[i] == personAnswers[i]) {
+                mark++
+            }
         }
-    }
-    let studyData = {
-        ...req.body,
-        Section_Score: (mark / trueAnswers.length).toFixed(2) * 100
-        // Person_id: req.session.userId
-    }
-    let sql2 = `SELECT max(id) AS maxId FROM person_study WHERE Person_id = ${req.body.Person_id} AND Associated_Section_id = ${req.body.Associated_Section_id}`;
-    let result2 = await getResult(sql2);
-    if (result2[0].maxId) {
-        pool.query('UPDATE person_study SET ? WHERE id=?', [studyData, result2[0].maxId], async function (err, results, fields) {
-            if (err) throw err;
-            res.json({ mySectionAnswers: results });
-        });
-    } else {
-        pool.query('INSERT INTO person_study SET ?', studyData, async function (err, results, fields) {
-            if (err) throw err;
-            res.json({ mySectionAnswers: results });
-        });
+        let studyData = {
+            ...req.body,
+            Section_Score: (mark / trueAnswers.length).toFixed(2) * 100
+        }
+        let sql2 = `SELECT max(id) AS maxId FROM person_study WHERE Person_id = ${req.body.Person_id} AND Associated_Section_id = ${req.body.Associated_Section_id}`;
+        let result2 = await getResult(sql2);
+        if(result2.length > 0) {
+            if (result2[0].maxId) {
+                pool.query('UPDATE person_study SET ? WHERE id=?', [studyData, result2[0].maxId], async function (err, results, fields) {
+                    if (err) throw err;
+                    res.json({ mySectionAnswers: results });
+                });
+            } else {
+                pool.query('INSERT INTO person_study SET ?', studyData, async function (err, results, fields) {
+                    if (err) throw err;
+                    res.json({ mySectionAnswers: results });
+                });
+            }
+        }
     }
 });
 
@@ -166,6 +221,7 @@ app.get('/api/getMyStudy/:personId', async (req, res) => {
     console.log("/api/getMyStudy ... ", req.session.userName)
     let sql = `SELECT * FROM person_study WHERE Person_id = ${req.params.personId}`;
     let result = await getResult(sql);
+    console.log(" ---- getMyStudy ----", result)
     let myStudy = {};
     if (result.length > 0) {
         // for (let i = 0; i < data3.length; i++) {
@@ -175,12 +231,12 @@ app.get('/api/getMyStudy/:personId', async (req, res) => {
         //         myStudy[data3[i].Associated_Section_id] = data3[i]
         //     }
         // }
-        result.forEach((item, idx) => {
+        result.forEach((item) => {
             !myStudy[item.Associated_Section_id] && (myStudy[item.Associated_Section_id] = item)
-
         })
-        res.json({ myStudy: myStudy });
     }
+    console.log('--------', myStudy)
+    res.json({ myStudy: myStudy });
 
 });
 

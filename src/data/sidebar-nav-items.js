@@ -1,9 +1,9 @@
 export default function () {
   return [
     {
-      title: "章节学习",
+      title: "课程学习",
       htmlBefore: '<i class="material-icons">vertical_split</i>',
-      to: "/course-sections",
+      to: "/curriculum-posts",
     },
     {
       title: "综合编程",
