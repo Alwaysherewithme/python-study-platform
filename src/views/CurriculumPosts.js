@@ -134,7 +134,8 @@ class CurriculumPosts extends React.Component {
         </Row>
 
         <Row>
-          {displayedCurriculums && displayedCurriculums.map((post, idx) => (
+          {
+            displayedCurriculums ? displayedCurriculums.map((post, idx) => (
             <Col lg="4" key={idx}>
               <Card small className="card-post mb-4">
                 <CardBody>
@@ -160,7 +161,16 @@ class CurriculumPosts extends React.Component {
                 </CardFooter>
               </Card>
             </Col>
-          ))}
+          )) : 
+          <Col>
+            <div className="error">
+              <div className="error__content">
+                <h3>没有内容</h3>
+                <p>快快选择一门加入学习吧！</p>
+              </div>
+            </div>
+          </Col>
+        }
         </Row>
       </Container>
     )

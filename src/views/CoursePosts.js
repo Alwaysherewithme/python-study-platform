@@ -79,7 +79,12 @@ class CoursePosts extends React.Component {
                 </CardBody>
                 <CardFooter className="border-top d-flex">
                   <div className="card-post__author d-flex">
-                    
+                    <a
+                        href="/curriculum-posts"
+                        className="text-left view-report"
+                    >
+                      &larr; 返回
+                    </a>
                   </div>
                   <div className="my-auto ml-auto">
                     {
