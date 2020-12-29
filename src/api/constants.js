@@ -1,5 +1,5 @@
 // let API = "http://localhost:5000";
-let API = "http://3.236.104.115:5000";
+let API = "http://18.204.37.108:5000";
 // let API_Socket = "http://localhost:8080";
 let API_Socket = "http://3.236.104.115:8080";
 
