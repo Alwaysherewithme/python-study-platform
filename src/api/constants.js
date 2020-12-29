@@ -1,5 +1,5 @@
 let API = "http://18.204.37.108:5000";
-let API_Socket = "http://18.204.37.108:8000";
+let API_Socket = "http://18.204.37.108:8080";
 
 /*
 if (process.env.NODE_ENV === "development") {
@@ -11,13 +11,7 @@ if (process.env.NODE_ENV === "development") {
 }
 */
 
-export const DB_CONF = {
-  connectionLimit: 10,
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'python_courses'
-};
+
 export const GLOBAL_COURSE_ID = "1";
 export const API_HOST = API;
 export const API_HOST_Socket = API_Socket;

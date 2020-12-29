@@ -1,25 +1,19 @@
 ### Quick Start
 
 * Node.js with NPM or Yarn installed.
+
 * DB initialization:
   ```sql
-  DROP TABLE IF EXISTS `courses`;
-  /*!40101 SET @saved_cs_client     = @@character_set_client */;
-  /*!40101 SET character_set_client = utf8 */;
-  CREATE TABLE `courses` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `title` varchar(100) DEFAULT NULL,
-    `summary` varchar(500) DEFAULT NULL,
-    `content` text,
-    PRIMARY KEY (`id`)
-  ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
-  /*!40101 SET character_set_client = @saved_cs_client */;
+  
   ```
 
 * Install dependencies by running: `yarn` or `npm install`.
+
 * Start server by running: `npm run server`.
+
 * Start client by running: `npm start`.
-* Visit in browser at: `localhost:3000`
+
+* Visit in browser at: `localhost:3000`.
 
 
 ### Project Structure
